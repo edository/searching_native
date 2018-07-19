@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Searching</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div>
+      <%= form_tag episodes_path, method: :get do %>
+        <%= text_field_tag :title, nil, placeholder: 'cari tutorial' %>
+        <%= submit_tag 'Cari' %>
+      <% end %>
+    </div>
+
+    <div>
+      <% @categories.each do |c| %>
+        <% link = params.permit(:title).merge(category_id: c.id) %>
+        <%= link_to c.name, episodes_path(link) %>
+      <% end %>
+    </div>
+    <%= yield %>
+  </body>
+</html>
